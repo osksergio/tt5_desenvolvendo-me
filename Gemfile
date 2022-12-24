@@ -7,6 +7,7 @@ gem 'rails', '~> 6.1.7'
 gem 'sqlite3', '~> 1.4'
 gem 'puma', '~> 5.0'
 gem 'bootsnap', '>= 1.4.4', require: false
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
