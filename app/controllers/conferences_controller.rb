@@ -35,7 +35,13 @@ class ConferencesController < ApplicationController
 
   # DELETE /conferences/1
   def destroy
-    @conference.destroy
+    id_deleted = params[:id]
+
+    if @conference.destroy
+      render json: { message: "Conference was successfully destroyed (id: #{id_deleted}).", status: :ok }
+    else
+      render json: @conference.errors, status: :unprocessable_entity
+    end
   end
 
   private
