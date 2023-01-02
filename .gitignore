@@ -32,3 +32,5 @@
 
 # Ignore IDE files
 .idea
+
+db/schema.rb
