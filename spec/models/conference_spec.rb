@@ -10,14 +10,14 @@ RSpec.describe Conference, type: :model do
     end
 
     # update 1
-    it 'Update Author 1' do
+    it 'Update Conference 1' do
       conference_type = Conference.create(description: "Super Development Conference")
       conference_type.update(description: "Ultra Development Conference")
       expect(conference_type.description).to eq("Ultra Development Conference")
     end
 
     # update 2
-    it 'Update Author 2' do
+    it 'Update Conference 2' do
       conference_type = Conference.create(description: "Super Development Conference 2022")
       conference_type.update(description: "Ultra Development Conference 2023")
       expect(conference_type.description).to eq("Ultra Development Conference 2023")
