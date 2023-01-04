@@ -36,7 +36,6 @@ class TracksController < ApplicationController
   # DELETE /tracks/1
   def destroy
     id_deleted = params[:id]
-    #@track.destroy
 
     if @track.destroy
       render json: { message: "Track was successfully destroyed (id: #{id_deleted}).", status: :ok }
