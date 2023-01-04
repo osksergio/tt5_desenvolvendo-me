@@ -35,7 +35,13 @@ class LecturesController < ApplicationController
 
   # DELETE /lectures/1
   def destroy
-    @lecture.destroy
+    id_deleted = params[:id]
+
+    if @lecture.destroy
+      render json: { message: "Lecture was successfully destroyed (id: #{id_deleted}).", status: :ok }
+    else
+      render json: @lecture.errors, status: :unprocessable_entity
+    end
   end
 
   private
