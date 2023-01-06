@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Track, type: :model do
-  context "CRUD Conference" do
+  context "CRUD Track" do
 
     # create
     it 'Create Track' do
