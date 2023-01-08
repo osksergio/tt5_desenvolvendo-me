@@ -44,6 +44,14 @@ class LecturesController < ApplicationController
     end
   end
 
+  def import_lectures
+    if Conference.create( description: 'Conferece - Default Title' )
+      render json: { message: "Criada nova conferência" }
+    else
+      render json: { message: "Erro ao criar uma conferência", status: :unprocessable_entity }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lecture
