@@ -45,21 +45,31 @@ class LecturesController < ApplicationController
   end
 
   def import_lectures
-    if Conference.create( description: 'Conferece - Default Title' )
-      render json: { message: "Criada nova conferência" }
+    #if Conference.create(description: 'Conferece - Default Title')
+    #  render json: { message: "Criada nova conferência" }
+    #else
+    #  render json: { message: "Erro ao criar uma conferência", status: :unprocessable_entity }
+    #end
+
+    file = File.open(params[:txt])
+    rows = file.readlines.map(&:chomp)
+
+    if rows.blank?
+      render json: { message: "Arquivo vazio!" }, status: :unprocessable_entity
     else
-      render json: { message: "Erro ao criar uma conferência", status: :unprocessable_entity }
+      render json: { first_message: rows.join(', ') }, status: :ok
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lecture
-      @lecture = Lecture.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def lecture_params
-      params.require(:lecture).permit(:description, :duration, :conference_id, :track_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_lecture
+    @lecture = Lecture.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def lecture_params
+    params.require(:lecture).permit(:description, :duration, :conference_id, :track_id)
+  end
 end
