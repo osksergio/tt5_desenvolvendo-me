@@ -44,6 +44,7 @@ class LecturesController < ApplicationController
     end
   end
 
+  # IMPORT lectures (text file)
   def import_lectures
     #if Conference.create(description: 'Conferece - Default Title')
     #  render json: { message: "Criada nova conferência" }
@@ -59,7 +60,7 @@ class LecturesController < ApplicationController
     end
 
     if rows.blank?
-      render json: { message: "Arquivo vazio!" }, status: :unprocessable_entity
+      render json: { message: 'Empty file!' }, status: :unprocessable_entity
     else
       render json: { message: rows.join(', ') }, status: :ok
     end
