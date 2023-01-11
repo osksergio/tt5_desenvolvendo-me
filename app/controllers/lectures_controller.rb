@@ -51,13 +51,17 @@ class LecturesController < ApplicationController
     #  render json: { message: "Erro ao criar uma conferência", status: :unprocessable_entity }
     #end
 
-    file = File.open(params[:txt])
-    rows = file.readlines.map(&:chomp)
+    rows = []
+    File.open(params[:txt], 'r') do |pointer|
+      while line = pointer.gets
+        rows << line.to_s
+      end
+    end
 
     if rows.blank?
       render json: { message: "Arquivo vazio!" }, status: :unprocessable_entity
     else
-      render json: { first_message: rows.join(', ') }, status: :ok
+      render json: { message: rows.join(', ') }, status: :ok
     end
   end
 
