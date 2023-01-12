@@ -9,6 +9,8 @@ class MinutesLecture
   def duration
     if @str.match?('min')
       @str.split(' ').last.scan(/\d+/)&.join().to_i
+    elsif @str.match?('lightning')
+      5
     else
       0
     end

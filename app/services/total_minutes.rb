@@ -6,9 +6,10 @@ class TotalMinutes
 
   def totalize
     total = 0
-    minutes_lecture = 'CRIAR UM SERVICE PARA RETORNAR OS MINUTES DA PALESTRA'
-
-    # looping no array totalizando os minutos
+    @arr.each do |a|
+      instance_minutes = MinutesLecture.new(a)
+      total += instance_minutes.duration
+    end
+    total
   end
 end
-

@@ -53,6 +53,7 @@ class LecturesController < ApplicationController
     #end
 
     rows = []
+    total_duration = 0
     File.open(params[:txt], 'r') do |pointer|
       while line = pointer.gets
         rows << line.to_s
@@ -62,8 +63,20 @@ class LecturesController < ApplicationController
     if rows.blank?
       render json: { message: 'Empty file!' }, status: :unprocessable_entity
     else
-      render json: { message: rows.join(', ') }, status: :ok
+      total_min = TotalMinutes.new(rows)
+      total_duration += total_min.totalize
+      #render json: { message: total_duration.to_s }, status: :ok
+
+      # criando as trilhas
+      inst_set_tracks = SetTracks.new(total_duration)
+      inst_set_tracks.create_tracks
     end
+
+    # 1a palestra:
+    # 9hs  as 12hs = 3hs ==> 180
+    # 14hs as 17hs = 3hs ==> 180
+    # total 360
+
   end
 
   private
