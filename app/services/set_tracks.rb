@@ -7,10 +7,14 @@ class SetTracks
   end
 
   def create_tracks
-    @qtd_tracks = (@minutes / @minutes_track) unless @minutes.zero?
-    # definir se vai truncar (truncate) ou arredondar (ceil)
+    @qtd_tracks = (@minutes / @minutes_track).truncate() unless @minutes.zero?
+    if @qtd_tracks > 0
+      for i in 1..(@qtd_tracks)
 
-    # inserir as tracks
-    #
+      end
+      return true
+    else
+      return false
+    end
   end
 end
