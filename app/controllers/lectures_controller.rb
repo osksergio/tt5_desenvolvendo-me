@@ -69,7 +69,7 @@ class LecturesController < ApplicationController
 
       # criando as trilhas
       inst_set_tracks = SetTracks.new(total_duration)
-      inst_set_tracks.create_tracks
+      inst_set_tracks.create_tracks(Conference.conference_id)
     end
 
     # 1a palestra:
