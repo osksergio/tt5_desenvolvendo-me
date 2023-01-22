@@ -14,9 +14,9 @@ class SetTracks
         Track.create(description: "Track #{index}", conference_id: conf_id)
       end
 
-      return true
+      return @qtd_tracks
     else
-      return false
+      return 0
     end
   end
 end
