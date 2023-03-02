@@ -46,39 +46,37 @@ class LecturesController < ApplicationController
 
   # IMPORT lectures (text file)
   def import_lectures
-    if Conference.create(description: 'Conferece - Default Title')
-      # ler o arquivo txt e inserir as linhas em um array
-      rows = []
-      total_duration = 0
-      File.open(params[:txt], 'r') do |pointer|
-        while line = pointer.gets
-          rows << line.to_s
-        end
+    #if Conference.create(description: 'Conferece - Default Title')
+    #  render json: { message_conference: "Criada nova conferência" }
+    #else
+    #  render json: { message_conference: "Erro ao criar uma conferência", status: :unprocessable_entity }
+    #end
+
+    # ler o arquivo txt e inserir as linhas em um array
+    rows = []
+    total_duration = 0
+    File.open(params[:txt], 'r') do |pointer|
+      while line = pointer.gets
+        rows << line.to_s
       end
-      #
-      if rows.blank?
-        render json: { message_file: 'Empty file!' }, status: :unprocessable_entity
-      else
-        total_min = TotalMinutes.new(rows)
-        total_duration = total_min.totalize
-        #render json: { message: total_duration.to_s }, status: :ok
-
-        # criando as trilhas
-        inst_set_tracks = SetTracks.new(total_duration)
-        qtd_tracks = inst_set_tracks.create_tracks(Conference.conference_id)
-
-        if qtd_tracks > 0
-          # for para vincular as tracks nas palestras
-          render json: { message_tracks: "Trilhas criadas com sucesso!" }
-        end
-      end
-
-      render json: { message_conference: "Criada nova conferência" }
-    else
-      render json: { message_conference: "Erro ao criar uma conferência", status: :unprocessable_entity }
     end
+    #
+    if rows.blank?
+      render json: { message_file: 'Empty file!' }, status: :unprocessable_entity
+    else
+      total_min = TotalMinutes.new(rows)
+      total_duration = total_min.totalize
+      #render json: { message: total_duration.to_s }, status: :ok
 
+      # criando as trilhas
+      inst_set_tracks = SetTracks.new(total_duration)
+      qtd_tracks = inst_set_tracks.create_tracks(1) # numero mágico temporário id da conference
 
+      if qtd_tracks > 0
+        # for para vincular as tracks nas palestras
+        render json: { message_tracks: "Trilhas criadas com sucesso!" }
+      end
+    end
 
     # 1a palestra:
     # 9hs  as 12hs = 3hs ==> 180
